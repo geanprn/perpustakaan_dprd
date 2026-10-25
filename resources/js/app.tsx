@@ -18,11 +18,20 @@ createInertiaApp({
     setup({ el, App, props }) {
         const root = createRoot(el);
 
+        /**
+         * Toaster dilampirkan di dalam children renderer Inertia agar
+         * terhubung ke konteks Page (usePage), bukan di luar <App>.
+         */
         root.render(
-            <>
-                <App {...props} />
-                <Toaster />
-            </>,
+            <App
+                {...props}
+                children={({ Component, key, props: pageProps }) => (
+                    <>
+                        <Component {...pageProps} key={key} />
+                        <Toaster />
+                    </>
+                )}
+            />,
         );
     },
     progress: {
