@@ -16,5 +16,16 @@ class DatabaseSeeder extends Seeder
     {
         // Akun hanya dibuat lewat seeder (tidak ada registrasi publik).
         $this->call(AdminSeeder::class);
+
+        // Data contoh tidak dijalankan di production.
+        if (app()->environment('production')) {
+            return;
+        }
+
+        $this->call([
+            CategorySeeder::class,
+            BookSeeder::class,
+            BorrowerSeeder::class,
+        ]);
     }
 }
