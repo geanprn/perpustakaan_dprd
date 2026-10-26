@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Public\CatalogController;
+use App\Http\Controllers\Public\HomeController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -13,13 +15,11 @@ use Inertia\Inertia;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', function () {
-    return Inertia::render('Public/Home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/katalog', function () {
-    return Inertia::render('Public/Katalog/Index');
-})->name('catalog.index');
+Route::get('/katalog', [CatalogController::class, 'index'])->name('catalog.index');
+
+Route::get('/katalog/{book}', [CatalogController::class, 'show'])->name('catalog.show');
 
 /*
 |--------------------------------------------------------------------------

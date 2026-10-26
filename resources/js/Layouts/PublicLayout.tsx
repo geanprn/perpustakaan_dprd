@@ -1,4 +1,3 @@
-import { Button } from '@/Components/ui/button';
 import { cn } from '@/lib/utils';
 import { Head, Link, usePage } from '@inertiajs/react';
 import { BookOpen, Menu, X } from 'lucide-react';
@@ -7,8 +6,12 @@ import { PropsWithChildren, useState } from 'react';
 import type { PageProps } from '@/types';
 
 const PUBLIC_NAV = [
-    { label: 'Beranda', href: '/' },
-    { label: 'Katalog', href: '/katalog' },
+    { label: 'Beranda', href: '/', matches: (url: string) => url === '/' },
+    {
+        label: 'Katalog',
+        href: '/katalog',
+        matches: (url: string) => url.startsWith('/katalog'),
+    },
 ];
 
 /**
@@ -39,8 +42,11 @@ export default function PublicLayout({
                     </nav>
 
                     <div className="flex items-center gap-2">
-                        <Link href="/login" className="hidden md:block">
-                            <Button size="sm">Login Petugas</Button>
+                        <Link
+                            href="/login"
+                            className="hidden text-sm font-medium text-gray-600 transition-colors hover:text-indigo-600 md:inline"
+                        >
+                            Login Petugas
                         </Link>
 
                         <button
@@ -61,10 +67,12 @@ export default function PublicLayout({
                 {menuOpen && (
                     <nav className="flex flex-col gap-1 border-t border-gray-200 px-4 py-3 md:hidden">
                         <PublicLinks onNavigate={() => setMenuOpen(false)} />
-                        <Link href="/login" onClick={() => setMenuOpen(false)}>
-                            <Button size="sm" className="mt-2 w-full">
-                                Login Petugas
-                            </Button>
+                        <Link
+                            href="/login"
+                            onClick={() => setMenuOpen(false)}
+                            className="mt-2 rounded-md border border-gray-300 px-4 py-2 text-center text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
+                        >
+                            Login Petugas
                         </Link>
                     </nav>
                 )}
@@ -90,7 +98,7 @@ function PublicLinks({ onNavigate }: { onNavigate?: () => void }) {
     return (
         <>
             {PUBLIC_NAV.map((item) => {
-                const isActive = url === item.href;
+                const isActive = item.matches(url);
 
                 return (
                     <Link
