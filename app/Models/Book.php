@@ -9,21 +9,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+#[Fillable([
+    'category_id',
+    'title',
+    'author',
+    'publisher',
+    'publication_year',
+    'shelf_location',
+    'total_copies',
+    'available_copies',
+])]
 class Book extends Model
 {
     /** @use HasFactory<BookFactory> */
     use HasFactory;
-
-    #[Fillable([
-        'category_id',
-        'title',
-        'author',
-        'publisher',
-        'publication_year',
-        'shelf_location',
-        'total_copies',
-        'available_copies',
-    ])]
 
     /**
      * Get the attributes that should be cast.

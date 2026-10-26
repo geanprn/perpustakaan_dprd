@@ -8,12 +8,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+#[Fillable(['name', 'identity_number', 'institution', 'phone', 'address'])]
 class Borrower extends Model
 {
     /** @use HasFactory<BorrowerFactory> */
     use HasFactory;
-
-    #[Fillable(['name', 'identity_number', 'institution', 'phone', 'address'])]
 
     /**
      * Peminjam memiliki banyak transaksi peminjaman.

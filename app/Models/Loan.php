@@ -11,12 +11,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+#[Fillable(['loan_number', 'borrower_id', 'user_id', 'loan_date', 'due_date', 'status', 'notes'])]
 class Loan extends Model
 {
     /** @use HasFactory<LoanFactory> */
     use HasFactory;
-
-    #[Fillable(['loan_number', 'borrower_id', 'user_id', 'loan_date', 'due_date', 'status', 'notes'])]
 
     /**
      * Get the attributes that should be cast.

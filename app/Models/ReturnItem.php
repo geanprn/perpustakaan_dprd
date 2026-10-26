@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+#[Fillable(['loan_item_id', 'user_id', 'return_date', 'quantity'])]
 class ReturnItem extends Model
 {
     /** @use HasFactory<ReturnItemFactory> */
@@ -17,8 +18,6 @@ class ReturnItem extends Model
      * Nama tabel mengikuti PRD (tabel "returns").
      */
     protected $table = 'returns';
-
-    #[Fillable(['loan_item_id', 'user_id', 'return_date', 'quantity'])]
 
     /**
      * Get the attributes that should be cast.
