@@ -73,6 +73,37 @@ export interface CatalogCategory {
     books_count: number;
 }
 
+export interface Borrower {
+    id: number;
+    name: string;
+    identity_number: string;
+    institution: string | null;
+    phone: string | null;
+    address: string | null;
+    loans_count?: number;
+}
+
+export interface BorrowerDetail {
+    id: number;
+    name: string;
+    identity_number: string;
+    institution: string | null;
+    phone: string | null;
+    address: string | null;
+    created_at: string | null;
+}
+
+export interface BorrowerLoan {
+    id: number;
+    loan_number: string;
+    loan_date: string | null;
+    due_date: string | null;
+    status: 'berjalan' | 'selesai';
+    petugas: string | null;
+    jumlah_judul: number;
+    jumlah_eksemplar: number;
+}
+
 export interface SharedProps {
     appName: string;
     auth: {
