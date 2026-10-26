@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\BorrowerController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\LoanController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Public\CatalogController;
 use App\Http\Controllers\Public\HomeController;
@@ -54,8 +55,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::put('/peminjam/{peminjam}', [BorrowerController::class, 'update'])->name('borrowers.update');
     Route::delete('/peminjam/{peminjam}', [BorrowerController::class, 'destroy'])->name('borrowers.destroy');
 
+    // Peminjaman (FR-LN-01 sampai FR-LN-09)
+    Route::get('/peminjaman', [LoanController::class, 'index'])->name('loans.index');
+    Route::get('/peminjaman/buat', [LoanController::class, 'create'])->name('loans.create');
+    Route::post('/peminjaman', [LoanController::class, 'store'])->name('loans.store');
+    Route::post('/peminjaman/peminjam', [LoanController::class, 'storeBorrower'])->name('loans.borrowers.store');
+    Route::get('/peminjaman/{peminjaman}', [LoanController::class, 'show'])->name('loans.show');
+
     // Menu placeholder — akan diisi di tahap berikutnya
-    Route::get('/peminjaman', fn () => Inertia::render('Admin/Peminjaman/Index'))->name('loans.index');
     Route::get('/pengembalian', fn () => Inertia::render('Admin/Pengembalian/Index'))->name('returns.index');
     Route::get('/laporan', fn () => Inertia::render('Admin/Laporan/Index'))->name('reports.index');
 });

@@ -104,6 +104,75 @@ export interface BorrowerLoan {
     jumlah_eksemplar: number;
 }
 
+export interface BorrowerOption {
+    id: number;
+    name: string;
+    identity_number: string;
+}
+
+export interface LoanFormBook {
+    id: number;
+    title: string;
+    author: string;
+    available_copies: number;
+}
+
+export interface LoanBorrowerSummary {
+    id: number;
+    name: string | null;
+    identity_number: string | null;
+}
+
+export interface LoanListItem {
+    id: number;
+    loan_number: string;
+    borrower: LoanBorrowerSummary;
+    loan_date: string | null;
+    due_date: string | null;
+    status: 'berjalan' | 'selesai';
+    is_overdue: boolean;
+    jumlah_judul: number;
+    jumlah_eksemplar: number;
+}
+
+export interface LoanReturnEntry {
+    id: number;
+    return_date: string | null;
+    quantity: number;
+    petugas: string | null;
+}
+
+export interface LoanDetailItem {
+    id: number;
+    title: string | null;
+    author: string | null;
+    quantity: number;
+    returned_quantity: number;
+    remaining_quantity: number;
+    status: 'dipinjam' | 'selesai';
+    returns: LoanReturnEntry[];
+}
+
+export interface LoanDetail {
+    id: number;
+    loan_number: string;
+    loan_date: string | null;
+    due_date: string | null;
+    status: 'berjalan' | 'selesai';
+    is_overdue: boolean;
+    notes: string | null;
+    petugas: string | null;
+    borrower: {
+        id: number;
+        name: string | null;
+        identity_number: string | null;
+        institution: string | null;
+        phone: string | null;
+    };
+}
+
+export type LoanStatusFilter = '' | 'berjalan' | 'selesai' | 'terlambat';
+
 export interface SharedProps {
     appName: string;
     auth: {
