@@ -173,6 +173,44 @@ export interface LoanDetail {
 
 export type LoanStatusFilter = '' | 'berjalan' | 'selesai' | 'terlambat';
 
+export interface ReturnableLoan {
+    id: number;
+    loan_number: string;
+    borrower: LoanBorrowerSummary;
+    loan_date: string | null;
+    due_date: string | null;
+    is_overdue: boolean;
+    jumlah_judul: number;
+    jumlah_eksemplar: number;
+    sisa_eksemplar: number;
+}
+
+export interface ReturnFormItem {
+    id: number;
+    title: string | null;
+    author: string | null;
+    quantity: number;
+    returned_quantity: number;
+    remaining_quantity: number;
+}
+
+export interface ReturnFormLoan {
+    id: number;
+    loan_number: string;
+    loan_date: string | null;
+    due_date: string | null;
+    status: 'berjalan' | 'selesai';
+    is_overdue: boolean;
+    petugas: string | null;
+    borrower: {
+        id: number;
+        name: string | null;
+        identity_number: string | null;
+        institution: string | null;
+        phone: string | null;
+    };
+}
+
 export interface SharedProps {
     appName: string;
     auth: {

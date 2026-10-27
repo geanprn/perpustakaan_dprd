@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoanController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\ReturnController;
 use App\Http\Controllers\Public\CatalogController;
 use App\Http\Controllers\Public\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -62,8 +63,12 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::post('/peminjaman/peminjam', [LoanController::class, 'storeBorrower'])->name('loans.borrowers.store');
     Route::get('/peminjaman/{peminjaman}', [LoanController::class, 'show'])->name('loans.show');
 
+    // Pengembalian (FR-RT-01 sampai FR-RT-09)
+    Route::get('/pengembalian', [ReturnController::class, 'index'])->name('returns.index');
+    Route::get('/pengembalian/{peminjaman}', [ReturnController::class, 'create'])->name('returns.create');
+    Route::post('/pengembalian/{peminjaman}', [ReturnController::class, 'store'])->name('returns.store');
+
     // Menu placeholder — akan diisi di tahap berikutnya
-    Route::get('/pengembalian', fn () => Inertia::render('Admin/Pengembalian/Index'))->name('returns.index');
     Route::get('/laporan', fn () => Inertia::render('Admin/Laporan/Index'))->name('reports.index');
 });
 

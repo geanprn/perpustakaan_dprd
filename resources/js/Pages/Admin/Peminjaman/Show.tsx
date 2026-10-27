@@ -23,8 +23,9 @@ interface PeminjamanShowProps {
 /**
  * Detail transaksi peminjaman (FR-LN-08).
  *
- * Riwayat pengembalian tampil kosong sampai pencatatan pengembalian
- * tersedia (Tahap 7).
+ * Menampilkan rincian buku beserta riwayat pengembalian lengkap
+ * (FR-RT-05). Tombol "Catat Pengembalian" disembunyikan bila transaksi
+ * sudah selesai.
  */
 export default function PeminjamanShow({ loan, items }: PeminjamanShowProps) {
     const returns = items.flatMap((item) =>
@@ -240,18 +241,20 @@ export default function PeminjamanShow({ loan, items }: PeminjamanShowProps) {
                 </Card>
 
                 <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
-                    <Link
-                        href={route('admin.returns.index')}
-                        className="inline-flex h-10 items-center justify-center gap-2 rounded-md border border-gray-300 bg-white px-4 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
-                    >
-                        <RotateCcw className="h-4 w-4" aria-hidden="true" />
-                        Catat Pengembalian
-                    </Link>
+                    {loan.status !== 'selesai' && (
+                        <Link
+                            href={route('admin.returns.create', loan.id)}
+                            className="inline-flex h-10 items-center justify-center gap-2 rounded-md border border-gray-300 bg-white px-4 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
+                        >
+                            <RotateCcw className="h-4 w-4" aria-hidden="true" />
+                            Catat Pengembalian
+                        </Link>
+                    )}
 
                     <Button
                         variant="outline"
                         disabled
-                        title="Tersedia pada tahap pengembalian"
+                        title="Tersedia pada tahap laporan"
                     >
                         Cetak Bukti (belum tersedia)
                     </Button>

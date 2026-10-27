@@ -384,10 +384,13 @@ class LoanManagementTest extends TestCase
         $user = $this->admin();
         $borrower = Borrower::factory()->create();
 
+        // Tanggal dipatok agar hanya PJM-C yang berstatus terlambat.
         Loan::factory()->create([
             'loan_number' => 'PJM-A',
             'borrower_id' => $borrower->id,
             'user_id' => $user->id,
+            'loan_date' => now()->toDateString(),
+            'due_date' => now()->addDays(14)->toDateString(),
             'status' => LoanStatus::berjalan->value,
         ]);
 
@@ -395,6 +398,8 @@ class LoanManagementTest extends TestCase
             'loan_number' => 'PJM-B',
             'borrower_id' => $borrower->id,
             'user_id' => $user->id,
+            'loan_date' => now()->subDays(30)->toDateString(),
+            'due_date' => now()->subDays(10)->toDateString(),
             'status' => LoanStatus::selesai->value,
         ]);
 
